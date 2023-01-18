@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.tsx", "./index.html"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       backgroundImage: {
         galaxy: "url('/background.png')",
         'nlw-gradient': 'linear-gradient(90deg, #9572FC 0%, #43E7AD 50.52%, #E2D45C 100%)',
