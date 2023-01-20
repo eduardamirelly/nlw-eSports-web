@@ -1,10 +1,15 @@
-import './styles/main.css';
-
-import logoImg from './assets/logo.svg';
-import { CreateAdBanner } from './components/CreateAdBanner';
 import { useEffect, useState } from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
+
+import { CreateAdBanner } from './components/CreateAdBanner';
 import { Game } from './@types/game';
 import { GameBanner } from './components/GameBanner';
+
+import logoImg from './assets/logo.svg';
+
+import './styles/main.css';
+import { GameController } from 'phosphor-react';
+import { ModalForm } from './components/ModalForm';
 
 function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -40,7 +45,24 @@ function App() {
         ))}
       </div>
 
-      <CreateAdBanner />
+      <Dialog.Root>
+        <CreateAdBanner />
+
+        <Dialog.Portal>
+          <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
+
+          <Dialog.Content className="fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg lg:w-2/5 w-3/4 shadow-lg shadow-black/25">
+            <Dialog.Title className="text-3xl font-black">
+              Publique um anúncio
+            </Dialog.Title>
+
+            <Dialog.Content>
+              <ModalForm />
+            </Dialog.Content>
+            {/* <Dialog.Close /> */}
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
