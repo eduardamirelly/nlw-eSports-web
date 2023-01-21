@@ -4,5 +4,9 @@ interface LabelFormProps {
 }
 
 export function LabelForm({ label, htmlFor }: LabelFormProps) {
-  return <label htmlFor={htmlFor}>{label}</label>;
+  return (
+    <label className="font-semibold" htmlFor={htmlFor}>
+      {label}
+    </label>
+  );
 }
