@@ -2,11 +2,16 @@ import { CaretDown, Check, GameController } from 'phosphor-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Select from '@radix-ui/react-select';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
+
+import { useState } from 'react';
 
 import { LabelForm } from '../Form/LabelForm';
 import { Input } from './Input';
 
 export function ModalForm() {
+  const [weekDays, setWeekDays] = useState<string[]>([]);
+
   return (
     <form className="mt-8 flex flex-col gap-4">
       <div className="flex flex-col gap-2">
@@ -74,49 +79,77 @@ export function ModalForm() {
       <div className="flex gap-6">
         <div className="flex flex-col gap-2">
           <LabelForm label="Quando costuma jogar?" htmlFor="weekDays" />
-          <div className="grid grid-cols-4 gap-2">
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Domingo"
+          <div>
+            <ToggleGroup.Root
+              className="grid grid-cols-4 gap-2"
+              type="multiple"
+              value={weekDays}
+              onValueChange={setWeekDays}
             >
-              D
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Segunda"
-            >
-              S
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Terça"
-            >
-              T
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Quarta"
-            >
-              Q
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Quinta"
-            >
-              Q
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Sexta"
-            >
-              S
-            </button>
-            <button
-              className="w-10 h-10 rounded bg-zinc-900 active:bg-violet-500"
-              title="Sábado"
-            >
-              S
-            </button>
+              <ToggleGroup.Item
+                value="0"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('0') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Domingo"
+              >
+                D
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="1"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('1') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Segunda"
+              >
+                S
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="2"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('2') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Terça"
+              >
+                T
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="3"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('3') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Quarta"
+              >
+                Q
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="4"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('4') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Quinta"
+              >
+                Q
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="5"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('5') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Sexta"
+              >
+                S
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="6"
+                className={`w-10 h-10 rounded ${
+                  weekDays.includes('6') ? 'bg-violet-500' : 'bg-zinc-900'
+                }`}
+                title="Sábado"
+              >
+                S
+              </ToggleGroup.Item>
+            </ToggleGroup.Root>
           </div>
         </div>
         <div className="flex flex-col gap-2 flex-1">

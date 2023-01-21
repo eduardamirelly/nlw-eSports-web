@@ -8,7 +8,6 @@ import { GameBanner } from './components/GameBanner';
 import logoImg from './assets/logo.svg';
 
 import './styles/main.css';
-import { GameController } from 'phosphor-react';
 import { ModalForm } from './components/Form/ModalForm';
 
 function App() {
