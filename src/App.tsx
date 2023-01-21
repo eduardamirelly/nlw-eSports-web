@@ -39,7 +39,7 @@ function App() {
           <GameBanner
             key={game.id}
             title={game.title}
-            bannerUrl={game.bannelUrl}
+            bannerUrl={game.bannerUrl}
             adsCount={game._count.ads}
           />
         ))}

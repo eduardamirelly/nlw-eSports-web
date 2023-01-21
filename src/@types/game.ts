@@ -1,7 +1,7 @@
 export interface Game {
   id: string;
   title: string;
-  bannelUrl: string;
+  bannerUrl: string;
   _count: {
     ads: number;
   };
