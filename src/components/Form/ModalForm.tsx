@@ -79,6 +79,7 @@ export function ModalForm() {
                 <Select.Group>
                   {games.map((game) => (
                     <Select.Item
+                      key={game.id}
                       value={game.id}
                       className="px-4 py-3 flex items-center gap-1 text-zinc-500 bg-zinc-900 hover:bg-zinc-800"
                     >
