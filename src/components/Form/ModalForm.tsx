@@ -20,7 +20,11 @@ export function ModalForm() {
       <div className="grid grid-cols-2 gap-6">
         <div className="flex flex-col gap-2">
           <LabelForm label="Joga há quantos anos?" htmlFor="yearsPlaying" />
-          <Input id="yearsPlaying" placeholder="Tudo bem ser ZERO" />
+          <Input
+            type="number"
+            id="yearsPlaying"
+            placeholder="Tudo bem ser ZERO"
+          />
         </div>
         <div className="flex flex-col gap-2">
           <LabelForm label="Qual seu discord?" htmlFor="discord" />
@@ -79,8 +83,8 @@ export function ModalForm() {
         <div className="flex flex-col gap-2 flex-1">
           <LabelForm label="Qual horário do dia?" htmlFor="hourStart" />
           <div className="grid grid-cols-2 gap-2">
-            <Input id="hourStart" placeholder="De" />
-            <Input id="hourEnd" placeholder="Até" />
+            <Input type="time" id="hourStart" placeholder="De" />
+            <Input type="time" id="hourEnd" placeholder="Até" />
           </div>
         </div>
       </div>
