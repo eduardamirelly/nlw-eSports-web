@@ -1,6 +1,7 @@
-import { Check, GameController } from 'phosphor-react';
+import { CaretDown, Check, GameController } from 'phosphor-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
+import * as Select from '@radix-ui/react-select';
 
 import { LabelForm } from '../Form/LabelForm';
 import { Input } from './Input';
@@ -10,7 +11,44 @@ export function ModalForm() {
     <form className="mt-8 flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <LabelForm label="Qual o game?" htmlFor="game" />
-        <Input id="game" placeholder="Selecione o game que deseja jogar" />
+        <Select.Root>
+          <Select.Trigger className="flex items-center justify-between bg-zinc-900 py-3 px-4 rounded text-sm text-zinc-500 hover:bg-zinc-900/80">
+            <Select.Value placeholder="Selecione o game que deseja jogar" />
+            <Select.Icon className="text-zinc-400">
+              <CaretDown size={24} />
+            </Select.Icon>
+          </Select.Trigger>
+
+          <Select.Portal>
+            <Select.Content
+              data-align="center"
+              data-side="bottom"
+              className="hidden bg-zinc-700 shadow-sm shadow-black/60 rounded"
+            >
+              <Select.ScrollUpButton>
+                <CaretDown size={24} />
+              </Select.ScrollUpButton>
+
+              <Select.Viewport>
+                <Select.Group>
+                  <Select.Item
+                    value="Apple"
+                    className="px-4 py-3 flex items-center gap-1 text-zinc-500 bg-zinc-900 hover:bg-zinc-800"
+                  >
+                    <Select.ItemText>Apple</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <Check size={24} />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                </Select.Group>
+              </Select.Viewport>
+
+              <Select.ScrollDownButton>
+                <CaretDown size={24} />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </div>
 
       <div className="flex flex-col gap-2">
