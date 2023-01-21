@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { CaretDown, Check, GameController } from 'phosphor-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
@@ -16,11 +18,9 @@ export function ModalForm() {
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/games`)
-      .then((response) => response.json())
-      .then((data) => {
-        setGames(data);
-      });
+    axios(`${import.meta.env.VITE_API_URL}/games`).then(({ data }) => {
+      setGames(data);
+    });
   }, []);
 
   function handleCreateAd(event: FormEvent) {

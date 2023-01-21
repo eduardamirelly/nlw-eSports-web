@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -14,11 +16,9 @@ function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/games`)
-      .then((response) => response.json())
-      .then((data) => {
-        setGames(data);
-      });
+    axios(`${import.meta.env.VITE_API_URL}/games`).then(({ data }) => {
+      setGames(data);
+    });
   }, []);
 
   return (
