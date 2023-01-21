@@ -4,19 +4,38 @@ import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Select from '@radix-ui/react-select';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
-import { useState } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 
 import { LabelForm } from '../Form/LabelForm';
 import { Input } from './Input';
+import { Game } from '../../@types/game';
 
 export function ModalForm() {
+  const [games, setGames] = useState<Game[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [useVoiceChannel, setUseVoiceChannel] = useState(false);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/games`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGames(data);
+      });
+  }, []);
+
+  function handleCreateAd(event: FormEvent) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+  }
 
   return (
-    <form className="mt-8 flex flex-col gap-4">
+    <form onSubmit={handleCreateAd} className="mt-8 flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <LabelForm label="Qual o game?" htmlFor="game" />
-        <Select.Root>
+        <Select.Root name="game">
           <Select.Trigger className="flex items-center justify-between bg-zinc-900 py-3 px-4 rounded text-sm text-zinc-500 hover:bg-zinc-900/80">
             <Select.Value placeholder="Selecione o game que deseja jogar" />
             <Select.Icon className="text-zinc-400">
@@ -36,15 +55,17 @@ export function ModalForm() {
 
               <Select.Viewport>
                 <Select.Group>
-                  <Select.Item
-                    value="Apple"
-                    className="px-4 py-3 flex items-center gap-1 text-zinc-500 bg-zinc-900 hover:bg-zinc-800"
-                  >
-                    <Select.ItemText>Apple</Select.ItemText>
-                    <Select.ItemIndicator>
-                      <Check size={24} />
-                    </Select.ItemIndicator>
-                  </Select.Item>
+                  {games.map((game) => (
+                    <Select.Item
+                      value={game.id}
+                      className="px-4 py-3 flex items-center gap-1 text-zinc-500 bg-zinc-900 hover:bg-zinc-800"
+                    >
+                      <Select.ItemText>{game.title}</Select.ItemText>
+                      <Select.ItemIndicator>
+                        <Check size={24} />
+                      </Select.ItemIndicator>
+                    </Select.Item>
+                  ))}
                 </Select.Group>
               </Select.Viewport>
 
@@ -58,7 +79,11 @@ export function ModalForm() {
 
       <div className="flex flex-col gap-2">
         <LabelForm label="Seu nome (ou nickname)" htmlFor="name" />
-        <Input id="name" placeholder="Como te chamam dentro do game?" />
+        <Input
+          id="name"
+          name="name"
+          placeholder="Como te chamam dentro do game?"
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-6">
@@ -67,12 +92,13 @@ export function ModalForm() {
           <Input
             type="number"
             id="yearsPlaying"
+            name="yearsPlaying"
             placeholder="Tudo bem ser ZERO"
           />
         </div>
         <div className="flex flex-col gap-2">
           <LabelForm label="Qual seu discord?" htmlFor="discord" />
-          <Input id="discord" placeholder="Usuário" />
+          <Input id="discord" name="discord" placeholder="Usuário" />
         </div>
       </div>
 
@@ -155,14 +181,29 @@ export function ModalForm() {
         <div className="flex flex-col gap-2 flex-1">
           <LabelForm label="Qual horário do dia?" htmlFor="hourStart" />
           <div className="grid grid-cols-2 gap-2">
-            <Input type="time" id="hourStart" placeholder="De" />
-            <Input type="time" id="hourEnd" placeholder="Até" />
+            <Input
+              type="time"
+              name="hourStart"
+              id="hourStart"
+              placeholder="De"
+            />
+            <Input type="time" name="hourEnd" id="hourEnd" placeholder="Até" />
           </div>
         </div>
       </div>
 
       <label className="mt-2 flex gap-2 text-sm items-center">
-        <Checkbox.Root className="w-6 h-6 rounded bg-zinc-900 p-1">
+        <Checkbox.Root
+          checked={useVoiceChannel}
+          onCheckedChange={(checked) => {
+            if (checked === true) {
+              setUseVoiceChannel(true);
+            } else {
+              setUseVoiceChannel(false);
+            }
+          }}
+          className="w-6 h-6 rounded bg-zinc-900 p-1"
+        >
           <Checkbox.Indicator>
             <Check className="w-4 h-4 text-emerald-400" />
           </Checkbox.Indicator>
