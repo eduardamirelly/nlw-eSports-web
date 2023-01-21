@@ -23,12 +23,34 @@ export function ModalForm() {
     });
   }, []);
 
-  function handleCreateAd(event: FormEvent) {
+  async function handleCreateAd(event: FormEvent) {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
-    console.log(data);
+
+    if (!data.name) {
+      return;
+    }
+
+    try {
+      await axios
+        .post(`${import.meta.env.VITE_API_URL}/games/${data.game}/ads`, {
+          name: data.name,
+          yearsPlaying: Number(data.yearsPlaying),
+          discord: data.discord,
+          weekDays: weekDays.map(Number),
+          hourStart: data.hourStart,
+          hourEnd: data.hourEnd,
+          useVoiceChannel: useVoiceChannel,
+        })
+        .then(({ data }) => {});
+
+      alert('Anúncio criado com sucesso!');
+    } catch (err) {
+      console.log(err);
+      alert('Erro ao criar o anúncio!');
+    }
   }
 
   return (
